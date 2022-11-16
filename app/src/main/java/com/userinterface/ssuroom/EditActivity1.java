@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -35,10 +36,17 @@ public class EditActivity1 extends AppCompatActivity {
     }
 
     public void clickbtn(View view) {
+        String addStr=address.getText().toString();
+        String phoneNumStr=phoneNumber.getText().toString();
+        if(addStr.isEmpty()||phoneNumStr.isEmpty()){
+            Toast.makeText(getApplicationContext(),"모든 값을 입력해주세요.",Toast.LENGTH_SHORT).show();
+            return;
+        }
         RadioButton btn=findViewById(isTrade.getCheckedRadioButtonId());
-        input.put("address",address.getText().toString());
+        input.put("address",addStr);
         input.put("isTrading",btn.getText().toString());
-        input.put("phoneNum",Integer.parseInt(phoneNumber.getText().toString()));
+        input.put("phoneNum",Integer.parseInt(phoneNumStr));
+
         Intent intent = new Intent(getApplicationContext(), EditActivity2.class);
         intent.putExtra("data",input);
         startActivity(intent);

@@ -92,7 +92,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="면적"
-        android:inputType="numberSigned"></EditText>
+        android:inputType="number"></EditText>
 
     <EditText
         android:id="@+id/floor"
@@ -100,7 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:hint="층 수"
-        android:inputType="numberSigned"></EditText>
+        android:inputType="number"></EditText>
 
     <TextView
         android:layout_width="match_parent"
@@ -111,6 +111,7 @@
     <!--화면 전체로 골고루 퍼지게 만들어야함-->
 
     <GridLayout
+        android:id="@+id/optionView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

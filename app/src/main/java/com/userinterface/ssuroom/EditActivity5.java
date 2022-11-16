@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
@@ -15,7 +20,7 @@ public class EditActivity5 extends AppCompatActivity {
     Button bt1;
     Button bt2;
     Button bt3;
-    HashMap<String,Object> input;
+    HashMap<String, Object> input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,16 +31,34 @@ public class EditActivity5 extends AppCompatActivity {
         bt2 = findViewById(R.id.camera2);
         bt3 = findViewById(R.id.camera3);
 
-        input=(HashMap<String, Object>) getIntent().getSerializableExtra("data");
+        input = (HashMap<String, Object>) getIntent().getSerializableExtra("data");
 
     }
+
     //넘어가는 액티비티 다시 설정하기
     public void clickbtn(View view) {
-        Log.d("inputData",input.toString());
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        Log.d("inputData", input.toString());
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("reviews").document()
+                .set(input)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(),"리뷰를 등록했습니다.",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        Log.d("server", "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(Exception e) {
+                        Log.w("server", "Error writing document", e);
+                    }
+                });
+
     }
 
     public void cameraopen(View view) {

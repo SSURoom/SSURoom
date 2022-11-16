@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EditActivity3 extends AppCompatActivity {
@@ -18,7 +22,9 @@ public class EditActivity3 extends AppCompatActivity {
     EditText floor;
     int area1;
     int floor1;
-    HashMap<String,Object> input;
+    HashMap<String, Object> input;
+    ViewGroup optionView;
+    ToggleButton[] options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,20 +34,38 @@ public class EditActivity3 extends AppCompatActivity {
         structure = findViewById(R.id.radiogroup3);
         area = findViewById(R.id.area);
         floor = findViewById(R.id.floor);
+        optionView = findViewById(R.id.optionView);
+        options = new ToggleButton[optionView.getChildCount()];
+        for (int i = 0; i < optionView.getChildCount(); i++)
+            options[i] = (ToggleButton) optionView.getChildAt(i);
 
-        input=(HashMap<String, Object>) getIntent().getSerializableExtra("data");
+        input = (HashMap<String, Object>) getIntent().getSerializableExtra("data");
 
         //area1 = Integer.parseInt(area.getText().toString());
         //floor1 = Integer.parseInt(floor.getText().toString());
     }
 
     public void clickbtn(View view) {
-        RadioButton btn=findViewById(structure.getCheckedRadioButtonId());
-        input.put("roomType",btn.getText().toString());
-        input.put("area",Integer.parseInt(area.getText().toString()));
-        input.put("floor",Integer.parseInt(floor.getText().toString()));
+        String areaStr = area.getText().toString();
+        String floorStr = floor.getText().toString();
+        if (areaStr.isEmpty() || floorStr.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "모든 값을 입력해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        RadioButton btn = findViewById(structure.getCheckedRadioButtonId());
+        input.put("roomType", btn.getText().toString());
+        input.put("area", Integer.parseInt(areaStr));
+        input.put("floor", Integer.parseInt(floorStr));
+
+        ArrayList<String> selectOptions = new ArrayList<>();
+        for (int i = 0; i < optionView.getChildCount(); i++) {
+            if (options[i].isChecked())
+                selectOptions.add(options[i].getText().toString());
+        }
+        input.put("option", selectOptions);
+
         Intent intent = new Intent(getApplicationContext(), EditActivity4.class);
-        intent.putExtra("data",input);
+        intent.putExtra("data", input);
         startActivity(intent);
     }
 }

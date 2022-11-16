@@ -76,7 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="임대료"
-        android:inputType="numberSigned"
+        android:inputType="number"
         android:minHeight="48dp"
         android:layout_marginBottom="10dp">
     </EditText>
@@ -86,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="보증금"
-        android:inputType="phone"
+        android:inputType="number"
         android:minHeight="48dp"
         android:layout_marginBottom="10dp">
     </EditText>
@@ -96,7 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="관리비"
-        android:inputType="numberSigned"
+        android:inputType="number"
         android:minHeight="48dp"
         android:layout_marginBottom="230dp">
     </EditText>
