@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditActivity5"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="리뷰작성"
+        android:textStyle="bold"
+        android:layout_gravity="start"
+        android:textSize="30dp"
+        android:textColor="@color/black">
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="사진"
+        android:textStyle="bold"
+        android:layout_gravity="start"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        android:layout_marginBottom="100dp">
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:text="거실/방 사진"
+        android:textColor="@color/black">
+    </TextView>
+
+    <Button
+        android:id="@+id/camera1"
+        android:layout_gravity="end"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="사진 추가"
+        android:textSize="18dp"
+        android:backgroundTint="#ff7f00"
+        android:layout_marginBottom="50dp">
+    </Button>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:text="대표 사진 *"
+        android:textColor="@color/black">
+    </TextView>
+
+    <Button
+        android:id="@+id/camera2"
+        android:layout_gravity="end"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="사진 추가"
+        android:textSize="18dp"
+        android:backgroundTint="#ff7f00"
+        android:layout_marginBottom="50dp"
+        android:onClick="cameraopen">
+    </Button>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:text="대표 사진 *"
+        android:textColor="@color/black"
+        android:onClick="cameraopen">
+    </TextView>
+
+    <Button
+        android:id="@+id/camera3"
+        android:layout_gravity="end"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="사진 추가"
+        android:textSize="18dp"
+        android:backgroundTint="#ff7f00"
+        android:layout_marginBottom="220dp"
+        android:onClick="cameraopen">
+    </Button>
+
+    <Button
+        android:id="@+id/bt5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="다음 5/5"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:backgroundTint="#ff7f00"
+        android:onClick="clickbtn">
+    </Button>
+
+</LinearLayout>

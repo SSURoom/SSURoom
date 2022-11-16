@@ -2,6 +2,7 @@ package com.userinterface.ssuroom;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -55,6 +56,14 @@ public class MainActivity extends AppCompatActivity {
         toggleButton6 = findViewById(R.id.toggleButton6);
 
         fab_main = findViewById(R.id.fab_main);
+
+        fab_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), EditActivity1.class);
+                startActivity(intent);
+            }
+        });
 
 
         spinner1 = (Spinner) findViewById(R.id.spinner1);
