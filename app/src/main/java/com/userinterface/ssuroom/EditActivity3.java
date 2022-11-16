@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import java.util.HashMap;
 
 public class EditActivity3 extends AppCompatActivity {
 
@@ -15,6 +18,7 @@ public class EditActivity3 extends AppCompatActivity {
     EditText floor;
     int area1;
     int floor1;
+    HashMap<String,Object> input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +29,19 @@ public class EditActivity3 extends AppCompatActivity {
         area = findViewById(R.id.area);
         floor = findViewById(R.id.floor);
 
+        input=(HashMap<String, Object>) getIntent().getSerializableExtra("data");
+
         //area1 = Integer.parseInt(area.getText().toString());
         //floor1 = Integer.parseInt(floor.getText().toString());
     }
 
     public void clickbtn(View view) {
+        RadioButton btn=findViewById(structure.getCheckedRadioButtonId());
+        input.put("roomType",btn.getText().toString());
+        input.put("area",Integer.parseInt(area.getText().toString()));
+        input.put("floor",Integer.parseInt(floor.getText().toString()));
         Intent intent = new Intent(getApplicationContext(), EditActivity4.class);
+        intent.putExtra("data",input);
         startActivity(intent);
     }
 }

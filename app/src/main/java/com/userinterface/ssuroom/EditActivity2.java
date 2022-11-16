@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import java.util.HashMap;
 
 public class EditActivity2 extends AppCompatActivity {
 
@@ -18,6 +21,7 @@ public class EditActivity2 extends AppCompatActivity {
     int stackPrice1;
     int servicePrice1;
     int state;
+    HashMap<String,Object> input;
 
 
     @Override
@@ -31,6 +35,8 @@ public class EditActivity2 extends AppCompatActivity {
         stackPrice = findViewById(R.id.stackPrice);
         servicePrice = findViewById(R.id.sevicePrice);
 
+        input=(HashMap<String, Object>) getIntent().getSerializableExtra("data");
+
         //monthPrice1 = Integer.parseInt(monthPrice.getText().toString());
         //stackPrice1 = Integer.parseInt(stackPrice.getText().toString());
         //servicePrice1 = Integer.parseInt(servicePrice.getText().toString());
@@ -38,9 +44,17 @@ public class EditActivity2 extends AppCompatActivity {
 
 
     public void clickbtn (View view){
+        RadioButton btn=findViewById(category.getCheckedRadioButtonId());
+        input.put("tradeType",btn.getText().toString());
+        input.put("rentCost",Integer.parseInt(monthPrice.getText().toString()));
+        input.put("depositCost",Integer.parseInt(stackPrice.getText().toString()));
+        input.put("adminCost",Integer.parseInt(servicePrice.getText().toString()));
         Intent intent = new Intent(getApplicationContext(), EditActivity3.class);
+        intent.putExtra("data",input);
         startActivity(intent);
     }
+
+    /*
     RadioGroup.OnCheckedChangeListener radioGroupClickListener = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -54,4 +68,5 @@ public class EditActivity2 extends AppCompatActivity {
             //추가 코드 작성 필요
         }
     };
+     */
 }

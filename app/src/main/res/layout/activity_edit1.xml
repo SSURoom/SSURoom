@@ -57,16 +57,19 @@
             android:orientation="horizontal">
 
             <RadioButton
+                android:id="@+id/radiogroup1btn1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="예"></RadioButton>
+                android:checked="true"
+                android:text="거래중"></RadioButton>
 
             <RadioButton
+                android:id="@+id/radiogroup1btn2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="아니요"></RadioButton>
+                android:text="거래완료"></RadioButton>
         </RadioGroup>
     </LinearLayout>
 
