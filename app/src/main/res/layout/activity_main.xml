@@ -99,31 +99,33 @@
             android:layout_marginTop="140dp"
             android:baselineAligned="true"
             android:orientation="horizontal"
-            tools:ignore="UnknownId">
+            tools:ignore="UnknownId"
+            android:gravity="center">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
 
 
                 <ImageView
                     android:id="@+id/imageView1"
-                    android:layout_width="125dp"
+                    android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginLeft="50dp"
-                    android:src="@drawable/one" />
+                    android:src="@drawable/one"
+                    android:layout_centerHorizontal="true"/>
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/imageView1">
 
                     <CheckBox
                         android:id="@+id/checkBox1"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="65dp"
-                        android:layout_marginRight="7dp"
+                        android:layout_marginLeft="5dp"
                         android:background="@drawable/checkbox"
                         android:button="@android:color/transparent" />
 
@@ -131,41 +133,49 @@
                         android:id="@+id/toggleButton1"
                         android:layout_width="47dp"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="115dp"
+                        android:layout_marginLeft="18dp"
                         android:backgroundTint="#F17149"
                         android:textColor="@color/white"
                         android:textOff="거래완료"
                         android:textOn="거래중"
                         android:textSize="6dp" />
 
-                </FrameLayout>
-
+                </LinearLayout>
                 <TextView
                     android:layout_width="125dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/imageView1"
-                    android:layout_alignLeft="@id/imageView1"
                     android:gravity="center_horizontal|center_vertical"
                     android:lineSpacingMultiplier="0.8"
+                    android:layout_centerHorizontal="true"
                     android:text="월세 1000 / 50\n 6평, 5층\n 관악구 봉천동\n ★★★★☆" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_weight="1">
+
 
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="125dp"
+                    android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginLeft="240dp"
-                    android:src="@drawable/two" />
+                    android:src="@drawable/two"
+                    android:layout_centerHorizontal="true"/>
 
-                <FrameLayout
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/imageView2">
 
                     <CheckBox
                         android:id="@+id/checkBox2"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="257dp"
-                        android:layout_marginRight="7dp"
+                        android:layout_marginLeft="5dp"
                         android:background="@drawable/checkbox"
                         android:button="@android:color/transparent" />
 
@@ -173,24 +183,22 @@
                         android:id="@+id/toggleButton2"
                         android:layout_width="47dp"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="305dp"
+                        android:layout_marginLeft="18dp"
                         android:backgroundTint="#F17149"
                         android:textColor="@color/white"
                         android:textOff="거래완료"
                         android:textOn="거래중"
                         android:textSize="6dp" />
 
-                </FrameLayout>
-
+                </LinearLayout>
                 <TextView
                     android:layout_width="125dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/imageView2"
-                    android:layout_alignLeft="@id/imageView2"
                     android:gravity="center_horizontal|center_vertical"
                     android:lineSpacingMultiplier="0.8"
+                    android:layout_centerHorizontal="true"
                     android:text="월세 1000 / 50\n 6평, 5층\n 관악구 봉천동\n ★★★★☆" />
-
             </RelativeLayout>
 
 
