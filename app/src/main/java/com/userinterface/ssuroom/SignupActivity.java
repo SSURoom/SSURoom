@@ -54,7 +54,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                             Log.d("signup", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(getApplicationContext(),"회원가입에 성공하였습니다.",Toast.LENGTH_SHORT).show();
-                            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                            Intent intent=new Intent(getApplicationContext(), LoginActivity.class);
                             startActivity(intent);
                             finish();
                             //updateUI(user);

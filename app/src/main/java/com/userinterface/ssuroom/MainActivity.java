@@ -1,79 +1,115 @@
 package com.userinterface.ssuroom;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.Spinner;
+import android.widget.ToggleButton;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private FirebaseAuth mAuth;
-    private TextView idTv, pwTv;
-    private Button loginBtn,signupBtn;
+public class MainActivity extends AppCompatActivity {
+
+    private Spinner spinner1;
+    private Spinner spinner2;
+    private Spinner spinner3;
+    private Spinner spinner4;
+
+    CheckBox checkBox;
+    CheckBox checkBox1;
+    CheckBox checkBox2;
+    CheckBox checkBox3;
+    CheckBox checkBox4;
+    CheckBox checkBox5;
+    CheckBox checkBox6;
+    ToggleButton toggleButton1;
+    ToggleButton toggleButton2;
+    ToggleButton toggleButton3;
+    ToggleButton toggleButton4;
+    ToggleButton toggleButton5;
+    ToggleButton toggleButton6;
+    FloatingActionButton fab_main;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAuth = FirebaseAuth.getInstance();
-        loginBtn = findViewById(R.id.login);
-        signupBtn = findViewById(R.id.signup);
-        loginBtn.setOnClickListener(this);
-        signupBtn.setOnClickListener(this);
-        idTv = findViewById(R.id.id);
-        pwTv = findViewById(R.id.password);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            //로그인 안되있는 경우?
-        }
-    }
+        checkBox = findViewById(R.id.checkBox);
+        checkBox1 = findViewById(R.id.checkBox1);
+        checkBox2 = findViewById(R.id.checkBox2);
+        checkBox3 = findViewById(R.id.checkBox3);
+        checkBox4 = findViewById(R.id.checkBox4);
+        checkBox5 = findViewById(R.id.checkBox5);
+        checkBox6 = findViewById(R.id.checkBox6);
 
-    @Override
-    public void onClick(View view) {
+        toggleButton1 = findViewById(R.id.toggleButton1);
+        toggleButton2 = findViewById(R.id.toggleButton2);
+        toggleButton3 = findViewById(R.id.toggleButton3);
+        toggleButton4 = findViewById(R.id.toggleButton4);
+        toggleButton5 = findViewById(R.id.toggleButton5);
+        toggleButton6 = findViewById(R.id.toggleButton6);
 
-        if(view==signupBtn) {
-            Intent intent=new Intent(getApplicationContext(),SignupActivity.class);
-            startActivity(intent);
-            //finish() 뒤로가기 막고싶으면 쓰는듯
-        }
-        else if(view==loginBtn){
-            Log.d("login","start login");
-            mAuth.signInWithEmailAndPassword(idTv.getText().toString(), pwTv.getText().toString())
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("login", "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                Intent intent=new Intent(getApplicationContext(),MainActivity2.class);
-                                startActivity(intent);
-                                Toast.makeText(getApplicationContext(),"로그인에 성공하였습니다.",Toast.LENGTH_SHORT).show();
-                                //updateUI(user);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("login", "signInWithEmail:failure", task.getException());
-                                Toast.makeText(getApplicationContext(),"비밀번호 또는 이메일을 확인해주세요.",Toast.LENGTH_SHORT).show();
-                                //updateUI(null);
-                            }
-                        }
-                    });
-        }
+        fab_main = findViewById(R.id.fab_main);
+
+
+        spinner1 = (Spinner) findViewById(R.id.spinner1);
+
+        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        spinner2 = (Spinner) findViewById(R.id.spinner2);
+
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinner3 = (Spinner) findViewById(R.id.spinner3);
+
+        spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinner4 = (Spinner) findViewById(R.id.spinner4);
+
+        spinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 }
