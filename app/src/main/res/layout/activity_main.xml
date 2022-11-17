@@ -1,432 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.0"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
+
 
     <RelativeLayout
+        android:id="@+id/search_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:background="#F17149">
 
-        <LinearLayout
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#F17149">
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/white"
+            app:iconifiedByDefault="false"
+            app:queryHint="지역, 지하철역, 학교 검색" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignTop="@id/search_view"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="7dp"
+            android:layout_toRightOf="@id/search_view"
+            android:background="@drawable/checkbox"
+            android:button="@android:color/transparent" />
 
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/search_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/white"
-                    app:iconifiedByDefault="false"
-                    app:queryHint="지역, 지하철역, 학교 검색" />
-
-                <CheckBox
-                    android:id="@+id/checkBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_alignTop="@id/search_view"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="7dp"
-                    android:layout_toRightOf="@id/search_view"
-                    android:background="@drawable/checkbox"
-                    android:button="@android:color/transparent" />
-
-                <Spinner
-                    android:id="@+id/spinner1"
-                    android:layout_width="94dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/search_view"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@color/white"
-                    android:entries="@array/my_array" />
-
-                <Spinner
-                    android:id="@+id/spinner2"
-                    android:layout_width="94dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/spinner1"
-                    android:layout_marginLeft="7dp"
-                    android:layout_toRightOf="@id/spinner1"
-                    android:background="@color/white"
-                    android:entries="@array/my_array1" />
-
-                <Spinner
-                    android:id="@+id/spinner3"
-                    android:layout_width="94dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/spinner2"
-                    android:layout_marginLeft="7dp"
-                    android:layout_toRightOf="@id/spinner2"
-                    android:background="@color/white"
-                    android:entries="@array/my_array2" />
-
-                <Spinner
-                    android:id="@+id/spinner4"
-                    android:layout_width="94dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/spinner3"
-                    android:layout_marginLeft="7dp"
-                    android:layout_toRightOf="@id/spinner3"
-                    android:background="@color/white"
-                    android:entries="@array/my_array3" />
-
-
-            </RelativeLayout>
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="94dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="140dp"
-            android:baselineAligned="true"
-            android:orientation="horizontal"
-            tools:ignore="UnknownId"
-            android:gravity="center">
+            android:layout_below="@id/search_view"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/white"
+            android:entries="@array/my_array" />
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_weight="1">
-
-
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/one"
-                    android:layout_centerHorizontal="true"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@id/imageView1">
-
-                    <CheckBox
-                        android:id="@+id/checkBox1"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/checkbox"
-                        android:button="@android:color/transparent" />
-
-                    <ToggleButton
-                        android:id="@+id/toggleButton1"
-                        android:layout_width="47dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="18dp"
-                        android:backgroundTint="#F17149"
-                        android:textColor="@color/white"
-                        android:textOff="거래완료"
-                        android:textOn="거래중"
-                        android:textSize="6dp" />
-
-                </LinearLayout>
-                <TextView
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/imageView1"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:lineSpacingMultiplier="0.8"
-                    android:layout_centerHorizontal="true"
-                    android:text="월세 1000 / 50\n 6평, 5층\n 관악구 봉천동\n ★★★★☆" />
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_weight="1">
-
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/two"
-                    android:layout_centerHorizontal="true"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@id/imageView2">
-
-                    <CheckBox
-                        android:id="@+id/checkBox2"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/checkbox"
-                        android:button="@android:color/transparent" />
-
-                    <ToggleButton
-                        android:id="@+id/toggleButton2"
-                        android:layout_width="47dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="18dp"
-                        android:backgroundTint="#F17149"
-                        android:textColor="@color/white"
-                        android:textOff="거래완료"
-                        android:textOn="거래중"
-                        android:textSize="6dp" />
-
-                </LinearLayout>
-                <TextView
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/imageView2"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:lineSpacingMultiplier="0.8"
-                    android:layout_centerHorizontal="true"
-                    android:text="월세 1000 / 50\n 6평, 5층\n 관악구 봉천동\n ★★★★☆" />
-            </RelativeLayout>
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="94dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="330dp"
-            android:layout_marginBottom="74dp"
-            android:baselineAligned="true"
-            android:orientation="horizontal"
-            tools:ignore="UnknownId">
+            android:layout_alignBottom="@id/spinner1"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/spinner1"
+            android:background="@color/white"
+            android:entries="@array/my_array1" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
-
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="125dp"
-                    android:layout_height="100dp"
-                    android:layout_marginLeft="50dp"
-                    android:src="@drawable/three" />
-
-                <ToggleButton
-                    android:id="@+id/toggleButton3"
-                    android:layout_width="47dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="115dp"
-                    android:backgroundTint="#F17149"
-                    android:textColor="@color/white"
-                    android:textOff="거래완료"
-                    android:textOn="거래중"
-                    android:textSize="6dp" />
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <CheckBox
-                        android:id="@+id/checkBox3"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="65dp"
-                        android:layout_marginRight="7dp"
-                        android:background="@drawable/checkbox"
-                        android:button="@android:color/transparent" />
-
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/imageView3"
-                    android:layout_alignLeft="@id/imageView3"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:lineSpacingMultiplier="0.8"
-                    android:text="월세 1000 / 50\n 6평, 5층\n 관악구 봉천동\n ★★★★☆" />
-
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="125dp"
-                    android:layout_height="100dp"
-                    android:layout_marginLeft="240dp"
-                    android:src="@drawable/four" />
-
-                <ToggleButton
-                    android:id="@+id/toggleButton4"
-                    android:layout_width="47dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="305dp"
-                    android:backgroundTint="#F17149"
-                    android:textColor="@color/white"
-                    android:textOff="거래완료"
-                    android:textOn="거래중"
-                    android:textSize="6dp" />
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <CheckBox
-                        android:id="@+id/checkBox4"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="257dp"
-                        android:layout_marginRight="7dp"
-                        android:background="@drawable/checkbox"
-                        android:button="@android:color/transparent" />
-
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/imageView4"
-                    android:layout_alignLeft="@id/imageView4"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:lineSpacingMultiplier="0.8"
-                    android:text="월세 1000 / 50\n 6평, 5층\n 관악구 봉천동\n ★★★★☆" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/spinner3"
+            android:layout_width="94dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="520dp"
-            android:layout_marginBottom="10dp"
-            android:baselineAligned="true"
-            android:orientation="horizontal"
-            tools:ignore="UnknownId">
+            android:layout_alignBottom="@id/spinner2"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/spinner2"
+            android:background="@color/white"
+            android:entries="@array/my_array2" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
-
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="125dp"
-                    android:layout_height="100dp"
-                    android:layout_marginLeft="50dp"
-                    android:src="@drawable/five" />
-
-                <ToggleButton
-                    android:id="@+id/toggleButton5"
-                    android:layout_width="47dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="115dp"
-                    android:backgroundTint="#F17149"
-                    android:textColor="@color/white"
-                    android:textOff="거래완료"
-                    android:textOn="거래중"
-                    android:textSize="6dp" />
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <CheckBox
-                        android:id="@+id/checkBox5"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="65dp"
-                        android:layout_marginRight="7dp"
-                        android:background="@drawable/checkbox"
-                        android:button="@android:color/transparent" />
-
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/imageView5"
-                    android:layout_alignLeft="@id/imageView5"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:lineSpacingMultiplier="0.8"
-                    android:text="월세 1000 / 50\n 6평, 5층\n 관악구 봉천동\n ★★★★☆" />
-
-
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="125dp"
-                    android:layout_height="100dp"
-                    android:layout_marginLeft="240dp"
-                    android:src="@drawable/six" />
-
-                <ToggleButton
-                    android:id="@+id/toggleButton6"
-                    android:layout_width="47dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="305dp"
-                    android:backgroundTint="#F17149"
-                    android:textColor="@color/white"
-                    android:textOff="거래완료"
-                    android:textOn="거래중"
-                    android:textSize="6dp" />
-
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <CheckBox
-                        android:id="@+id/checkBox6"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="257dp"
-                        android:layout_marginRight="7dp"
-                        android:background="@drawable/checkbox"
-                        android:button="@android:color/transparent" />
-
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/TextView6"
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/imageView6"
-                    android:layout_alignLeft="@id/imageView6"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:lineSpacingMultiplier="0.8"
-                    android:text="월세 1000 / 50\n 6평, 5층\n 관악구 봉천동\n ★★★★☆" />
-
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fab_main"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@id/TextView6"
-                    android:layout_toRightOf="@id/TextView6"
-                    android:clickable="true"
-                    android:visibility="visible"
-                    app:srcCompat="@drawable/ic_pen" />
-
-
-            </RelativeLayout>
-
-        </LinearLayout>
+        <Spinner
+            android:id="@+id/spinner4"
+            android:layout_width="94dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/spinner3"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/spinner3"
+            android:background="@color/white"
+            android:entries="@array/my_array3" />
 
 
     </RelativeLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/search_bar"
+        android:fillViewport="true">
 
-</ScrollView>
+        <GridView
+            android:id="@+id/gridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="2"
+            android:gravity="center_horizontal"
+            >
+
+        </GridView>
+
+    </ScrollView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_main"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:clickable="true"
+        android:visibility="visible"
+        app:srcCompat="@drawable/ic_pen" />
+
+
+</RelativeLayout>
