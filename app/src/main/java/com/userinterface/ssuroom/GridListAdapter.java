@@ -1,14 +1,18 @@
 package com.userinterface.ssuroom;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,9 +26,11 @@ public class GridListAdapter extends BaseAdapter {
     ArrayList<ReviewItem> items=new ArrayList<ReviewItem>();
     Context context;
     FirebaseFirestore db;
+    AppCompatActivity mainActivity;
 
-    public GridListAdapter() {
+    public GridListAdapter(AppCompatActivity activity) {
         db=FirebaseFirestore.getInstance();
+        mainActivity=activity;
     }
 
     public void addItem(ReviewItem item){
@@ -64,6 +70,18 @@ public class GridListAdapter extends BaseAdapter {
 
         RatingBar itemStar=view.findViewById(R.id.itemStar);
         itemStar.setRating((float)item.star);
+
+        Button trading=view.findViewById(R.id.tradingButton);
+        trading.setText(item.getIsTrading());
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(mainActivity,DetailActivity.class);
+                intent.putExtra("id",item.getId());
+                mainActivity.startActivity(intent);
+            }
+        });
 
         return view;
     }

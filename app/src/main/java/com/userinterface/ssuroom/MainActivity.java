@@ -24,7 +24,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     FloatingActionButton fab_main;
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         GridView gridView = findViewById(R.id.gridView);
-        GridListAdapter adapter = new GridListAdapter();
+        GridListAdapter adapter = new GridListAdapter(this);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("reviews")
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Map<String, Object> data = document.getData();
-                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star")));
+                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"),(String) data.get("isTrading"),document.getId()));
                             }
 
                             gridView.setAdapter(adapter);

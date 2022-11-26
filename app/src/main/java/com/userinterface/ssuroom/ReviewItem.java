@@ -8,8 +8,10 @@ public class ReviewItem {
     long floor;
     String address;
     double star;
+    String isTrading;
+    String id;
 
-    public ReviewItem(String tradeType, long rentCost, long depositCost, long area, long floor, String address, double star) {
+    public ReviewItem(String tradeType, long rentCost, long depositCost, long area, long floor, String address, double star, String isTrading,String id) {
         this.tradeType = tradeType;
         this.rentCost = rentCost;
         this.depositCost = depositCost;
@@ -17,6 +19,8 @@ public class ReviewItem {
         this.floor = floor;
         this.address = address;
         this.star = star;
+        this.isTrading = isTrading;
+        this.id = id;
     }
 
     public String getTradeType() {
@@ -73,5 +77,21 @@ public class ReviewItem {
 
     public void setStar(double star) {
         this.star = star;
+    }
+
+    public String getIsTrading() {
+        return isTrading;
+    }
+
+    public void setIsTrading(String isTrading) {
+        this.isTrading = isTrading;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
