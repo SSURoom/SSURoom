@@ -2,26 +2,28 @@
 <resources>
     <string-array name="my_array">
         <item>계약</item>
+        <item>전체</item>
         <item>월세</item>
         <item>전세</item>
-        <item>매매</item>
-        <item>전월세</item>
     </string-array>
     <string-array name="my_array1">
         <item>구조</item>
+        <item>전체</item>
         <item>원룸</item>
         <item>투룸</item>
-        <item>쓰리룸</item>
+        <item>쓰리룸+</item>
     </string-array>
     <string-array name="my_array2">
-        <item>금액</item>
-        <item>~40</item>
-        <item>40~50</item>
-        <item>50~60</item>
-        <item>60~</item>
+        <item>임대료</item>
+        <item>전체</item>
+        <item>~39</item>
+        <item>40~59</item>
+        <item>60~79</item>
+        <item>80~</item>
     </string-array>
     <string-array name="my_array3">
         <item>상태</item>
+        <item>전체</item>
         <item>거래중</item>
         <item>거래완료</item>
     </string-array>

@@ -1,5 +1,6 @@
 package com.userinterface.ssuroom;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,19 +16,61 @@ import android.widget.ToggleButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton fab_main;
+    int[] filter={0,0,0,0};
 
+    private Query filterReviews() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Query query=db.collection("reviews");
+
+        if (filter[0] == 2)
+            query = query.whereEqualTo("tradeType", "월세");
+        else if (filter[0] == 3)
+            query = query.whereEqualTo("tradeType", "전세");
+
+        if (filter[1] == 2)
+            query = query.whereIn("roomType", Arrays.asList("오픈형 원룸", "분리형 원룸", "복층형 원룸"));
+        else if (filter[1] == 3)
+            query = query.whereEqualTo("roomType", "투룸");
+        else if (filter[1] == 4)
+            query = query.whereEqualTo("roomType", "쓰리룸+");
+
+        if (filter[2] == 2)
+            query = query.whereLessThan("rentCost", 40);
+        else if (filter[2]== 3) {
+            query = query.whereLessThan("rentCost", 60)
+                    .whereGreaterThanOrEqualTo("rentCost", 40);
+        } else if (filter[2]== 4) {
+            query = query.whereLessThan("rentCost", 80)
+                    .whereGreaterThanOrEqualTo("rentCost", 60);
+        } else if (filter[2]== 5)
+            query = query.whereGreaterThanOrEqualTo("rentCost", 80);
+
+        if (filter[3] == 2)
+            query = query.whereEqualTo("isTrading", "거래중");
+        else if (filter[3] == 3)
+            query = query.whereEqualTo("isTrading", "거래완료");
+
+        Log.d("firebaseFilter", filter[0]+" "+filter[1]+" "+filter[2]+" "+filter[3]);
+
+
+        return query;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +100,7 @@ public class MainActivity extends AppCompatActivity{
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Map<String, Object> data = document.getData();
-                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"),(String) data.get("isTrading"),document.getId()));
+                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId()));
                             }
 
                             gridView.setAdapter(adapter);
@@ -66,5 +109,130 @@ public class MainActivity extends AppCompatActivity{
                         }
                     }
                 });
+
+        Spinner spinner1 = findViewById(R.id.spinner1);
+        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0)
+                    return;
+                filter[0]=i;
+                adapter.clearItem();
+                Query query=filterReviews();
+                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> data = document.getData();
+                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId()));
+                                Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.d("firebaseSpinner", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        Spinner spinner2 = findViewById(R.id.spinner2);
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0)
+                    return;
+                filter[1]=i;
+                adapter.clearItem();
+                Query query=filterReviews();
+                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> data = document.getData();
+                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId()));
+                                Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.d("firebaseSpinner", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        Spinner spinner3 = findViewById(R.id.spinner3);
+        spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0)
+                    return;
+                filter[2]=i;
+                adapter.clearItem();
+                Query query=filterReviews();
+                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> data = document.getData();
+                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId()));
+                                Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.d("firebaseSpinner", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        Spinner spinner4 = findViewById(R.id.spinner4);
+        spinner4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i == 0)
+                    return;
+                filter[3]=i;
+                adapter.clearItem();
+                Query query=filterReviews();
+                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> data = document.getData();
+                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId()));
+                                Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.d("firebaseSpinner", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
+
 }

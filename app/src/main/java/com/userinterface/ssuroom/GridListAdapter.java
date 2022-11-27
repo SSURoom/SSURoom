@@ -23,18 +23,24 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 public class GridListAdapter extends BaseAdapter {
-    ArrayList<ReviewItem> items=new ArrayList<ReviewItem>();
+    ArrayList<ReviewItem> items = new ArrayList<ReviewItem>();
     Context context;
     FirebaseFirestore db;
     AppCompatActivity mainActivity;
 
     public GridListAdapter(AppCompatActivity activity) {
-        db=FirebaseFirestore.getInstance();
-        mainActivity=activity;
+        db = FirebaseFirestore.getInstance();
+        mainActivity = activity;
     }
 
-    public void addItem(ReviewItem item){
+    public void addItem(ReviewItem item) {
         items.add(item);
+        this.notifyDataSetChanged();
+    }
+
+    public void clearItem() {
+        items.clear();
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -54,31 +60,31 @@ public class GridListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        context=viewGroup.getContext();
-        ReviewItem item=items.get(i);
+        context = viewGroup.getContext();
+        ReviewItem item = items.get(i);
 
-        if(view==null){
-            LayoutInflater inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view=inflater.inflate(R.layout.list_item,viewGroup,false);
+        if (view == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.list_item, viewGroup, false);
         }
 
-        TextView itemTitle=view.findViewById(R.id.itemTitle);
-        String content=item.tradeType+" "+item.depositCost+" / "+item.rentCost+"\n"+
-                item.area+"평, "+item.floor+"층\n"+
+        TextView itemTitle = view.findViewById(R.id.itemTitle);
+        String content = item.tradeType + " " + item.depositCost + " / " + item.rentCost + "\n" +
+                item.area + "평, " + item.floor + "층\n" +
                 item.address;
         itemTitle.setText(content);
 
-        RatingBar itemStar=view.findViewById(R.id.itemStar);
-        itemStar.setRating((float)item.star);
+        RatingBar itemStar = view.findViewById(R.id.itemStar);
+        itemStar.setRating((float) item.star);
 
-        Button trading=view.findViewById(R.id.tradingButton);
+        Button trading = view.findViewById(R.id.tradingButton);
         trading.setText(item.getIsTrading());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(mainActivity,DetailActivity.class);
-                intent.putExtra("id",item.getId());
+                Intent intent = new Intent(mainActivity, DetailActivity.class);
+                intent.putExtra("id", item.getId());
                 mainActivity.startActivity(intent);
             }
         });
