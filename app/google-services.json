@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "539115397932",
+    "project_id": "ssuroom-b8cd6",
+    "storage_bucket": "ssuroom-b8cd6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539115397932:android:58c23c3cecf62c3700c289",
+        "android_client_info": {
+          "package_name": "com.userinterface.ssuroom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539115397932-8plpr7cse5i98gcrbbg3vl30oi6bbae7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiejfGAXdlqT2gGa4VLyTEtco-jzMi_Bs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "539115397932-8plpr7cse5i98gcrbbg3vl30oi6bbae7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539115397932:android:e76379f5c88b884700c289",
+        "android_client_info": {
+          "package_name": "com.userinterface.ssuroom2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539115397932-8plpr7cse5i98gcrbbg3vl30oi6bbae7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiejfGAXdlqT2gGa4VLyTEtco-jzMi_Bs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "539115397932-8plpr7cse5i98gcrbbg3vl30oi6bbae7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
