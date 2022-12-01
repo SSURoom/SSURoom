@@ -11,8 +11,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EditActivity5 extends AppCompatActivity {
@@ -31,8 +34,12 @@ public class EditActivity5 extends AppCompatActivity {
         bt2 = findViewById(R.id.camera2);
         bt3 = findViewById(R.id.camera3);
 
-        input = (HashMap<String, Object>) getIntent().getSerializableExtra("data");
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
 
+        input = (HashMap<String, Object>) getIntent().getSerializableExtra("data");
+        input.put("createdAt",System.currentTimeMillis());
+        input.put("fans",new ArrayList<String>());
+        input.put("uid",user.getUid());
     }
 
     //넘어가는 액티비티 다시 설정하기

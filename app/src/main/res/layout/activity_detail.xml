@@ -246,21 +246,23 @@
                 android:layout_height="match_parent">
 
                 <EditText
+                    android:id="@+id/commentContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/border"
                     android:hint="   댓글을 작성해주세요 \n \n"></EditText>
 
-                <ToggleButton
+                <Button
+                    android:id="@+id/commentBtn"
                     android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="30dp"
                     android:backgroundTint="#F17149"
                     android:textColor="@color/white"
-                    android:textOff="등록"
+                    android:text="등록"
                     android:textSize="15dp"
-                    android:layout_marginLeft="300dp"/>
+                    android:layout_marginLeft="300dp" />
             </FrameLayout>
         </LinearLayout>
 
