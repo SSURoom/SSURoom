@@ -9,13 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -79,6 +85,56 @@ public class GridListAdapter extends BaseAdapter {
 
         Button trading = view.findViewById(R.id.tradingButton);
         trading.setText(item.getIsTrading());
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        CheckBox heart = view.findViewById(R.id.reviewHeart);
+        heart.setChecked(item.isHeart());
+        heart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean checked = ((CheckBox) view).isChecked();
+                item.setHeart(checked);
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection("reviews").document(item.getId())
+                        .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        ArrayList<String> fans = (ArrayList<String>) document.getData().get("fans");
+                                        if (fans.contains(user.getUid()))
+                                            fans.remove(user.getUid());
+                                        else
+                                            fans.add(user.getUid());
+                                        db.collection("reviews").document(item.getId())
+                                                .update("fans", fans)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.d("firebase_heart", "DocumentSnapshot data: " + document.getData());
+
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.d("firebase_heart", "get failed");
+
+                                                    }
+                                                });
+                                    } else {
+                                        Log.d("firebase_heart", "No such document");
+                                    }
+                                } else {
+                                    Log.d("firebase_heart", "get failed with ", task.getException());
+                                }
+                            }
+                        });
+            }
+        });
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

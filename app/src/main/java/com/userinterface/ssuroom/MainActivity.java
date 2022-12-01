@@ -16,6 +16,8 @@ import android.widget.ToggleButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -24,6 +26,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +34,8 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton fab_main;
-    int[] filter={0,0,0,0};
+    int[] filter={0,0,0,0,0};
+    String myId;
 
     private Query filterReviews() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -66,7 +70,11 @@ public class MainActivity extends AppCompatActivity {
         else if (filter[3] == 3)
             query = query.whereEqualTo("isTrading", "거래완료");
 
-        Log.d("firebaseFilter", filter[0]+" "+filter[1]+" "+filter[2]+" "+filter[3]);
+        if(filter[4]==1)
+            query=query.whereArrayContains("fans",myId);
+
+
+        Log.d("firebaseFilter", filter[0]+" "+filter[1]+" "+filter[2]+" "+filter[3]+" "+filter[4]);
 
 
         return query;
@@ -77,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+        myId=user.getUid();
 
         fab_main = findViewById(R.id.fab_main);
 
@@ -100,7 +110,9 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Map<String, Object> data = document.getData();
-                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId()));
+                                ArrayList<String> fans=(ArrayList<String>) data.get("fans");
+                                boolean isHeart=fans.contains(user.getUid());
+                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
                             }
 
                             gridView.setAdapter(adapter);
@@ -125,7 +137,9 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Map<String, Object> data = document.getData();
-                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId()));
+                                ArrayList<String> fans=(ArrayList<String>) data.get("fans");
+                                boolean isHeart=fans.contains(user.getUid());
+                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
                                 Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
                             }
                         } else {
@@ -156,7 +170,9 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Map<String, Object> data = document.getData();
-                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId()));
+                                ArrayList<String> fans=(ArrayList<String>) data.get("fans");
+                                boolean isHeart=fans.contains(user.getUid());
+                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
                                 Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
                             }
                         } else {
@@ -187,7 +203,9 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Map<String, Object> data = document.getData();
-                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId()));
+                                ArrayList<String> fans=(ArrayList<String>) data.get("fans");
+                                boolean isHeart=fans.contains(user.getUid());
+                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
                                 Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
                             }
                         } else {
@@ -218,7 +236,9 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Map<String, Object> data = document.getData();
-                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId()));
+                                ArrayList<String> fans=(ArrayList<String>) data.get("fans");
+                                boolean isHeart=fans.contains(user.getUid());
+                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
                                 Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
                             }
                         } else {
@@ -231,6 +251,36 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+
+        CheckBox heart=findViewById(R.id.heart);
+        heart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean checked = ((CheckBox) view).isChecked();
+                if(checked)
+                    filter[4]=1;
+                else
+                    filter[4]=0;
+                adapter.clearItem();
+                Query query=filterReviews();
+                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> data = document.getData();
+                                ArrayList<String> fans=(ArrayList<String>) data.get("fans");
+                                boolean isHeart=fans.contains(user.getUid());
+                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
+                                Log.d("firebasecheckbox", document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.d("firebasecheckbox", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
             }
         });
     }

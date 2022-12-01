@@ -5,6 +5,8 @@ public class Comment {
     private long createdAt;
 
     public Comment(String name, String comment, long createdAt) {
+        if(comment==null)
+            name=" ";
         this.name = name;
         this.comment = comment;
         this.createdAt = createdAt;

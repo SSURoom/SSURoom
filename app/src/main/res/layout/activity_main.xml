@@ -22,7 +22,7 @@
             app:queryHint="지역, 지하철역, 학교 검색" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/heart"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_alignTop="@id/search_view"

@@ -34,7 +34,6 @@
         android:id="@+id/password2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_marginHorizontal="20dp"
         android:hint="비밀번호"
         android:layout_marginBottom="30dp"
@@ -45,7 +44,6 @@
         android:id="@+id/passwordConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="30dp"
         android:hint="비밀번호 확인"
@@ -60,7 +58,7 @@
         android:layout_marginHorizontal="20dp"
         android:hint="닉네임"
         android:layout_marginBottom="30dp"
-        android:inputType="textPassword"
+        android:inputType="text"
 
         android:maxLines="1"/>
 

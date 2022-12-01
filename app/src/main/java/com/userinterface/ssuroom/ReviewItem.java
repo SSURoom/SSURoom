@@ -10,8 +10,9 @@ public class ReviewItem {
     double star;
     String isTrading;
     String id;
+    boolean isHeart;
 
-    public ReviewItem(String tradeType, long rentCost, long depositCost, long area, long floor, String address, double star, String isTrading,String id) {
+    public ReviewItem(String tradeType, long rentCost, long depositCost, long area, long floor, String address, double star, String isTrading,String id,boolean isHeart) {
         this.tradeType = tradeType;
         this.rentCost = rentCost;
         this.depositCost = depositCost;
@@ -21,6 +22,15 @@ public class ReviewItem {
         this.star = star;
         this.isTrading = isTrading;
         this.id = id;
+        this.isHeart=isHeart;
+    }
+
+    public boolean isHeart() {
+        return isHeart;
+    }
+
+    public void setHeart(boolean heart) {
+        isHeart = heart;
     }
 
     public String getTradeType() {

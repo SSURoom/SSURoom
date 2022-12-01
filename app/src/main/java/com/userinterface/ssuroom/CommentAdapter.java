@@ -2,6 +2,7 @@ package com.userinterface.ssuroom;
 
 import android.content.Context;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,11 @@ public class CommentAdapter extends BaseAdapter {
 
     public void addItem(Comment comment) {
         comments.add(comment);
+        this.notifyDataSetChanged();
+    }
+
+    public void clear(){
+        comments.clear();
         this.notifyDataSetChanged();
     }
 
@@ -89,6 +95,8 @@ public class CommentAdapter extends BaseAdapter {
         writerTv.setText(comment.getName());
         timeTv.setText(calculateTime(i));
         textTv.setText(comment.getComment());
+
+        Log.d("firebase_comment", writerTv.getText().toString()+", "+timeTv.getText().toString()+", "+textTv.getText().toString());
 
         return view;
     }
