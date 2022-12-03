@@ -18,7 +18,7 @@ import com.userinterface.ssuroom.fragment.SearchDialogFragment;
 
 import java.util.HashMap;
 
-public class EditActivity1 extends AppCompatActivity {
+public class EditActivity1 extends AppCompatActivity implements SearchDialogFragment.OnReceiveDataListener {
 
     EditText address;
     EditText phoneNumber;
@@ -67,5 +67,10 @@ public class EditActivity1 extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), EditActivity2.class);
         intent.putExtra("data",input);
         startActivity(intent);
+    }
+
+    @Override
+    public void onReceiveData(String s) {
+        address.setText(s);
     }
 }

@@ -118,7 +118,7 @@ public class DetailActivity extends AppCompatActivity {
                         address.setText((String) data.get("address"));
                         String costString = data.get("tradeType") + " " + data.get("depositCost") + "/" + data.get("rentCost");
                         cost.setText(costString);
-                        adminCost.setText("관리비" + data.get("adminCost")+"만원");
+                        adminCost.setText("관리비 " + data.get("adminCost")+"만원");
                         isTrading.setText("" + data.get("isTrading"));
                         roomType.setText("" + data.get("roomType"));
                         area.setText("" + data.get("area")+"평");

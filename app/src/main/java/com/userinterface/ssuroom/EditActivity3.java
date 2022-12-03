@@ -53,7 +53,7 @@ public class EditActivity3 extends AppCompatActivity {
             return;
         }
         RadioButton btn = findViewById(structure.getCheckedRadioButtonId());
-        input.put("roomType", btn.getText().toString());
+        input.put("roomType", btn.getText().toString().replace("\n", " "));
         input.put("area", Integer.parseInt(areaStr));
         input.put("floor", Integer.parseInt(floorStr));
 

@@ -34,7 +34,8 @@
 
 
     <GridLayout
-        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:columnCount="3"
         android:orientation="horizontal"
@@ -45,26 +46,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <RadioButton
                 android:id="@+id/radiogroup3btn1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="오픈형 원룸"></RadioButton>
+                android:text="오픈형\n원룸"></RadioButton>
 
             <RadioButton
                 android:id="@+id/radiogroup3btn2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="분리형 원룸"></RadioButton>
+                android:text="분리형\n원룸"></RadioButton>
 
             <RadioButton
                 android:id="@+id/radiogroup3btn3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="복층형 원룸"></RadioButton>
+                android:text="복층형\n원룸"></RadioButton>
 
             <RadioButton
                 android:id="@+id/radiogroup3btn4"
@@ -76,13 +78,7 @@
                 android:id="@+id/radiogroup3btn5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="쓰리룸"></RadioButton>
-
-            <RadioButton
-                android:id="@+id/radiogroup3btn6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="포룸+"></RadioButton>
+                android:text="쓰리룸+"></RadioButton>
         </RadioGroup>
     </GridLayout>
 
@@ -91,7 +87,7 @@
         android:id="@+id/area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="면적"
+        android:hint="면적    (단위: 평)"
         android:inputType="number"></EditText>
 
     <EditText
@@ -99,7 +95,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:hint="층 수"
+        android:hint="층 수   (단위: 층)"
         android:inputType="number"></EditText>
 
     <TextView
@@ -112,11 +108,12 @@
 
     <GridLayout
         android:id="@+id/optionView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="90dp"
         android:columnCount="3"
+
         android:orientation="horizontal"
         android:rowCount="4">
 
