@@ -1,8 +1,7 @@
-package com.userinterface.ssuroom;
+package com.userinterface.ssuroom.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +21,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.userinterface.ssuroom.DetailActivity;
+import com.userinterface.ssuroom.R;
+import com.userinterface.ssuroom.model.ReviewItem;
 
 import java.util.ArrayList;
 
@@ -75,13 +76,13 @@ public class GridListAdapter extends BaseAdapter {
         }
 
         TextView itemTitle = view.findViewById(R.id.itemTitle);
-        String content = item.tradeType + " " + item.depositCost + " / " + item.rentCost + "\n" +
-                item.area + "평, " + item.floor + "층\n" +
-                item.address;
+        String content = item.getTradeType() + " " + item.getDepositCost() + " / " + item.getRentCost() + "\n" +
+                item.getArea() + "평, " + item.getFloor() + "층\n" +
+                item.getAddress();
         itemTitle.setText(content);
 
         RatingBar itemStar = view.findViewById(R.id.itemStar);
-        itemStar.setRating((float) item.star);
+        itemStar.setRating((float) item.getStar());
 
         Button trading = view.findViewById(R.id.tradingButton);
         trading.setText(item.getIsTrading());

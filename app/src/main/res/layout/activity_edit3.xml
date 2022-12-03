@@ -193,6 +193,11 @@
             android:textOn="책장"></ToggleButton>
     </GridLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
     <Button
         android:id="@+id/bt3"
         android:layout_width="match_parent"

@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,18 +29,57 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Text;
+import com.userinterface.ssuroom.adapter.CommentAdapter;
+import com.userinterface.ssuroom.adapter.OptionsAdapter;
+import com.userinterface.ssuroom.model.Comment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DetailActivity extends AppCompatActivity {
+    private static class TIME_MAXIMUM {
+        public static final int SEC = 60;
+        public static final int MIN = 60;
+        public static final int HOUR = 24;
+        public static final int DAY = 30;
+        public static final int MONTH = 12;
+    }
+    
+    
+
     ListView commentList;
     CommentAdapter commentAdapter;
     String id;//postId
     InputMethodManager imm;
+
+    private String calculateTime(long regTime) {
+        long curTime = System.currentTimeMillis();
+        long diffTime = (curTime - regTime) / 1000;
+
+        String msg;
+
+        if (diffTime < TIME_MAXIMUM.SEC) {
+            // sec
+            msg = diffTime + "초전";
+        } else if ((diffTime /= TIME_MAXIMUM.SEC) < TIME_MAXIMUM.MIN) {
+            // min
+            System.out.println(diffTime);
+            msg = diffTime + "분전";
+        } else if ((diffTime /= TIME_MAXIMUM.MIN) < TIME_MAXIMUM.HOUR) {
+            // hour
+            msg = (diffTime) + "시간전";
+        } else if ((diffTime /= TIME_MAXIMUM.HOUR) < TIME_MAXIMUM.DAY) {
+            // day
+            msg = (diffTime) + "일전";
+        } else if ((diffTime /= TIME_MAXIMUM.DAY) < TIME_MAXIMUM.MONTH) {
+            // day
+            msg = (diffTime) + "달전";
+        } else {
+            msg = (diffTime) + "년전";
+        }
+        return msg;
+    }
 
 
     @Override
@@ -59,6 +97,8 @@ public class DetailActivity extends AppCompatActivity {
         TextView floor = findViewById(R.id.text11);
         TextView review = findViewById(R.id.review);
         GridView option = findViewById(R.id.options);
+        TextView phoneTv=findViewById(R.id.phonenumber);
+        TextView timeTv=findViewById(R.id.text4);
         commentList = findViewById(R.id.commentList);
         commentAdapter = new CommentAdapter();
         commentList.setAdapter(commentAdapter);
@@ -78,12 +118,14 @@ public class DetailActivity extends AppCompatActivity {
                         address.setText((String) data.get("address"));
                         String costString = data.get("tradeType") + " " + data.get("depositCost") + "/" + data.get("rentCost");
                         cost.setText(costString);
-                        adminCost.setText("" + data.get("adminCost"));
+                        adminCost.setText("관리비" + data.get("adminCost")+"만원");
                         isTrading.setText("" + data.get("isTrading"));
                         roomType.setText("" + data.get("roomType"));
-                        area.setText("" + data.get("area"));
-                        floor.setText("" + data.get("floor"));
+                        area.setText("" + data.get("area")+"평");
+                        floor.setText("" + data.get("floor")+"층");
                         review.setText("" + data.get("review"));
+                        phoneTv.setText(""+data.get("phoneNum"));
+                        timeTv.setText(calculateTime((long)data.get("createdAt")));
 
                         ArrayList<String> optionData = (ArrayList<String>) data.get("option");
                         OptionsAdapter optionsAdapter = new OptionsAdapter(getApplicationContext(), R.layout.option_item, optionData);

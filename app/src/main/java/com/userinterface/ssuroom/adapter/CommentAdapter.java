@@ -1,7 +1,6 @@
-package com.userinterface.ssuroom;
+package com.userinterface.ssuroom.adapter;
 
 import android.content.Context;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.userinterface.ssuroom.R;
+import com.userinterface.ssuroom.model.Comment;
 
 import java.util.ArrayList;
 

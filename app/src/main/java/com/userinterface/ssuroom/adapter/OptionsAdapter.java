@@ -1,4 +1,4 @@
-package com.userinterface.ssuroom;
+package com.userinterface.ssuroom.adapter;
 
 import android.content.Context;
 import android.text.Layout;
@@ -10,6 +10,8 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.userinterface.ssuroom.R;
 
 import java.util.ArrayList;
 

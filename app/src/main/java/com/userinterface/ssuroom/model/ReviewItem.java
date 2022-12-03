@@ -1,4 +1,4 @@
-package com.userinterface.ssuroom;
+package com.userinterface.ssuroom.model;
 
 public class ReviewItem {
     String tradeType;
