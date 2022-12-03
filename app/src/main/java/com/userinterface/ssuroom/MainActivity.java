@@ -2,15 +2,20 @@ package com.userinterface.ssuroom;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -91,6 +96,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), EditActivity1.class);
+                startActivity(intent);
+            }
+        });
+
+
+        SearchView searchView=findViewById(R.id.search_view);
+        Log.d("search_click","init");
+        setSearchViewOnClickListener(searchView,new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("search_click","sssss");
+                Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
         });
@@ -280,6 +298,25 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    private static void setSearchViewOnClickListener(View v, View.OnClickListener listener) {
+        if (v instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup)v;
+            int count = group.getChildCount();
+            for (int i = 0; i < count; i++) {
+                View child = group.getChildAt(i);
+                if (child instanceof LinearLayout || child instanceof RelativeLayout) {
+                    setSearchViewOnClickListener(child, listener);
+                }
+
+                if (child instanceof TextView) {
+                    TextView text = (TextView)child;
+                    text.setFocusable(false);
+                }
+                child.setOnClickListener(listener);
+            }
+        }
     }
 
 }

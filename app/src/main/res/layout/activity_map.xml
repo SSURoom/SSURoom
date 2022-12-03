@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F17149">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/map_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/white"
+            app:iconifiedByDefault="false"
+            app:queryHint="지역, 지하철역, 학교 검색" />
+
+        <CheckBox
+            android:id="@+id/heart"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignTop="@id/map_search"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="7dp"
+            android:layout_toRightOf="@id/map_search"
+            android:background="@drawable/checkbox"
+            android:button="@android:color/transparent" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="94dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/map_search"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/white"
+            android:entries="@array/my_array" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="94dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/spinner1"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/spinner1"
+            android:background="@color/white"
+            android:entries="@array/my_array1" />
+
+        <Spinner
+            android:id="@+id/spinner3"
+            android:layout_width="94dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/spinner2"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/spinner2"
+            android:background="@color/white"
+            android:entries="@array/my_array2" />
+
+        <Spinner
+            android:id="@+id/spinner4"
+            android:layout_width="94dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/spinner3"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@id/spinner3"
+            android:background="@color/white"
+            android:entries="@array/my_array3" />
+
+
+    </RelativeLayout>
+
+
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+</LinearLayout>
