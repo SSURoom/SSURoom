@@ -213,6 +213,17 @@
 
                 </GridView>
 
+                <Button
+                    android:id="@+id/calling"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="call"
+                    android:layout_toRightOf="@id/phonenumber"
+                    android:backgroundTint="#00A900"
+                    android:layout_alignBaseline="@id/phonenumber"
+                    android:layout_marginLeft="20dp">
+                </Button>
+
                 <!--
                 <ToggleButton
                     android:id="@+id/toggle2"

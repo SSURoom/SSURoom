@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -117,6 +119,14 @@ public class DetailActivity extends AppCompatActivity {
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
 
+        String pNum = phoneTv.getText().toString();
+        Button callBt = findViewById(R.id.calling);
+        callBt.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ pNum));
+            //Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(String.valueOf(phoneTv)));
+            startActivity(intent);
+        });
+
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("reviews").document(id);
@@ -171,6 +181,7 @@ public class DetailActivity extends AppCompatActivity {
                 commentData.put("postId", id);
                 commentData.put("content", content);
                 commentData.put("name", user.getDisplayName());
+
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 db.collection("comments").document()
