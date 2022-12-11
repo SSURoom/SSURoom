@@ -2,6 +2,7 @@ package com.userinterface.ssuroom;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -53,6 +54,9 @@ public class DetailActivity extends AppCompatActivity {
     String id;//postId
     InputMethodManager imm;
 
+    Adapter adapter;
+    ViewPager viewPager;
+
     private String calculateTime(long regTime) {
         long curTime = System.currentTimeMillis();
         long diffTime = (curTime - regTime) / 1000;
@@ -85,7 +89,15 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_detail);
+
+        viewPager = (ViewPager) findViewById(R.id.view);
+        adapter = new Adapter(this);
+        viewPager.setAdapter(adapter);
+
+
         id = getIntent().getStringExtra("id");
 
         TextView address = findViewById(R.id.text1);
