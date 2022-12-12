@@ -32,6 +32,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.userinterface.ssuroom.adapter.CommentAdapter;
 import com.userinterface.ssuroom.adapter.OptionsAdapter;
 import com.userinterface.ssuroom.model.Comment;
@@ -48,8 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         public static final int DAY = 30;
         public static final int MONTH = 12;
     }
-    
-    
+
 
     ListView commentList;
     CommentAdapter commentAdapter;
@@ -111,8 +112,8 @@ public class DetailActivity extends AppCompatActivity {
         TextView floor = findViewById(R.id.text11);
         TextView review = findViewById(R.id.review);
         GridView option = findViewById(R.id.options);
-        TextView phoneTv=findViewById(R.id.phonenumber);
-        TextView timeTv=findViewById(R.id.text4);
+        TextView phoneTv = findViewById(R.id.phonenumber);
+        TextView timeTv = findViewById(R.id.text4);
         commentList = findViewById(R.id.commentList);
         commentAdapter = new CommentAdapter();
         commentList.setAdapter(commentAdapter);
@@ -122,7 +123,7 @@ public class DetailActivity extends AppCompatActivity {
         String pNum = phoneTv.getText().toString();
         Button callBt = findViewById(R.id.calling);
         callBt.setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ pNum));
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + pNum));
             //Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(String.valueOf(phoneTv)));
             startActivity(intent);
         });
@@ -136,22 +137,54 @@ public class DetailActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
+                        Log.d("final_log","DB 게시글 정보 가져오기");
                         Map<String, Object> data = document.getData();
                         address.setText((String) data.get("address"));
                         String costString = data.get("tradeType") + " " + data.get("depositCost") + "/" + data.get("rentCost");
                         cost.setText(costString);
-                        adminCost.setText("관리비 " + data.get("adminCost")+"만원");
+                        adminCost.setText("관리비 " + data.get("adminCost") + "만원");
                         isTrading.setText("" + data.get("isTrading"));
                         roomType.setText("" + data.get("roomType"));
-                        area.setText("" + data.get("area")+"평");
-                        floor.setText("" + data.get("floor")+"층");
+                        area.setText("" + data.get("area") + "평");
+                        floor.setText("" + data.get("floor") + "층");
                         review.setText("" + data.get("review"));
-                        phoneTv.setText(""+data.get("phoneNum"));
-                        timeTv.setText(calculateTime((long)data.get("createdAt")));
+                        phoneTv.setText("" + data.get("phoneNum"));
+                        timeTv.setText(calculateTime((long) data.get("createdAt")));
 
                         ArrayList<String> optionData = (ArrayList<String>) data.get("option");
                         OptionsAdapter optionsAdapter = new OptionsAdapter(getApplicationContext(), R.layout.option_item, optionData);
                         option.setAdapter(optionsAdapter);
+
+                        ArrayList<String> fileName = (ArrayList<String>) data.get("imgs");
+                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                        StorageReference storageRef = storage.getReference();
+                        byte[][] imgData=new byte[3][];
+                        storageRef.child("image").child(fileName.get(0))
+                                .getBytes(10*1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                    @Override
+                                    public void onSuccess(byte[] bytes) {
+                                        Log.d("final_log","1번째 사진 다운로드");
+                                        imgData[0]=bytes;
+                                        storageRef.child("image").child(fileName.get(1))
+                                                .getBytes(10*1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                                    @Override
+                                                    public void onSuccess(byte[] bytes) {
+                                                        Log.d("final_log","2번째 사진 다운로드");
+                                                        imgData[1]=bytes;
+                                                        storageRef.child("image").child(fileName.get(2))
+                                                                .getBytes(10*1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                                                    @Override
+                                                                    public void onSuccess(byte[] bytes) {
+                                                                        Log.d("final_log","3번째 사진 다운로드");
+                                                                        imgData[2]=bytes;
+                                                                        adapter = new Adapter(getApplicationContext(),imgData);
+                                                                        viewPager.setAdapter(adapter);
+                                                                    }
+                                                                });
+                                                    }
+                                                });
+                                    }
+                                });
                         Log.d("FirebaseDetail", "" + document.getData());
                     } else {
                         Log.d("FirebaseDetail", "the review is not existed");
@@ -222,7 +255,7 @@ public class DetailActivity extends AppCompatActivity {
                                 Map<String, Object> data = document.getData();
                                 Log.d("firebase_comment", data.toString());
                                 commentAdapter.addItem(new Comment((String) data.get("name"), (String) data.get("content"), (long) data.get("createdAt")));
-                                if(n==1){
+                                if (n == 1) {
                                     //Toast.makeText(getApplicationContext(),"댓글을 등록했습니다.",Toast.LENGTH_SHORT).show();
                                     EditText commentEt = findViewById(R.id.commentContent);
                                     commentEt.setText("");
