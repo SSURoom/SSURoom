@@ -1,6 +1,7 @@
 package com.userinterface.ssuroom;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
@@ -26,11 +27,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.type.LatLng;
 import com.userinterface.ssuroom.adapter.GridListAdapter;
 import com.userinterface.ssuroom.model.ReviewItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab_main;
     int[] filter={0,0,0,0,0};
     String myId;
+    FirebaseUser user;
+    GridListAdapter adapter;
 
     private Query filterReviews() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -87,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+        user=FirebaseAuth.getInstance().getCurrentUser();
         myId=user.getUid();
 
         fab_main = findViewById(R.id.fab_main);
@@ -109,12 +114,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("search_click","sssss");
                 Intent intent = new Intent(getApplicationContext(), MapActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
+                startActivityForResult(intent,2);
             }
         });
 
         GridView gridView = findViewById(R.id.gridView);
-        GridListAdapter adapter = new GridListAdapter(this);
+        adapter = new GridListAdapter(this);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("reviews")
@@ -128,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                                 ArrayList<String> fans=(ArrayList<String>) data.get("fans");
                                 boolean isHeart=fans.contains(user.getUid());
                                 adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
+                                Log.d("final_log", "초기 리뷰 데이터 DB에서 가져오기");
                             }
 
                             gridView.setAdapter(adapter);
@@ -156,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                                 boolean isHeart=fans.contains(user.getUid());
                                 adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
                                 Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
+                                Log.d("final_log", "필터 적용해서 DB에서 가져오기");
                             }
                         } else {
                             Log.d("firebaseSpinner", "Error getting documents: ", task.getException());
@@ -189,6 +196,8 @@ public class MainActivity extends AppCompatActivity {
                                 boolean isHeart=fans.contains(user.getUid());
                                 adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
                                 Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
+                                Log.d("final_log", "필터 적용해서 DB에서 가져오기");
+
                             }
                         } else {
                             Log.d("firebaseSpinner", "Error getting documents: ", task.getException());
@@ -222,6 +231,8 @@ public class MainActivity extends AppCompatActivity {
                                 boolean isHeart=fans.contains(user.getUid());
                                 adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
                                 Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
+                                Log.d("final_log", "필터 적용해서 DB에서 가져오기");
+
                             }
                         } else {
                             Log.d("firebaseSpinner", "Error getting documents: ", task.getException());
@@ -255,6 +266,8 @@ public class MainActivity extends AppCompatActivity {
                                 boolean isHeart=fans.contains(user.getUid());
                                 adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
                                 Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
+                                Log.d("final_log", "필터 적용해서 DB에서 가져오기");
+
                             }
                         } else {
                             Log.d("firebaseSpinner", "Error getting documents: ", task.getException());
@@ -290,6 +303,8 @@ public class MainActivity extends AppCompatActivity {
                                 boolean isHeart=fans.contains(user.getUid());
                                 adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
                                 Log.d("firebasecheckbox", document.getId() + " => " + document.getData());
+                                Log.d("final_log", "좋아요 적용해서 DB에서 가져오기");
+
                             }
                         } else {
                             Log.d("firebasecheckbox", "Error getting documents: ", task.getException());
@@ -319,4 +334,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode==RESULT_OK){
+            ArrayList<String> places=data.getStringArrayListExtra("near");
+            adapter.clearItem();
+            Query query=filterReviews();
+            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Map<String, Object> data = document.getData();
+                            ArrayList<String> fans=(ArrayList<String>) data.get("fans");
+                            boolean isHeart=fans.contains(user.getUid());
+                            adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
+                            Log.d("final_log", "거리 정보 적용해서 가까운 리뷰만 DB에서 가져오기");
+                        }
+                        adapter.removeFarReview(places);
+                    } else {
+                    }
+                }
+            });
+        }
+    }
 }

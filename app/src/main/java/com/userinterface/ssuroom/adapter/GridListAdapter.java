@@ -45,6 +45,16 @@ public class GridListAdapter extends BaseAdapter {
         this.notifyDataSetChanged();
     }
 
+    public void removeFarReview(ArrayList<String> reviews){
+        ArrayList<ReviewItem> newItems=new ArrayList<>();
+        for(ReviewItem item:items){
+            if(reviews.contains(item.getId()))
+                newItems.add(item);
+        }
+        items=newItems;
+        this.notifyDataSetChanged();
+    }
+
     public void clearItem() {
         items.clear();
         this.notifyDataSetChanged();

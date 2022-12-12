@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Log.d("login", "signInWithEmail:success");
+                                Log.d("final_log", "로그인 성공");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Intent intent=new Intent(getApplicationContext(), MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 //updateUI(user);
                             } else {
                                 // If sign in fails, display a message to the user.
+                                Log.d("final_log", "로그인 실패");
                                 Log.w("login", "signInWithEmail:failure", task.getException());
                                 Toast.makeText(getApplicationContext(),"비밀번호 또는 이메일을 확인해주세요.",Toast.LENGTH_SHORT).show();
                                 //updateUI(null);
