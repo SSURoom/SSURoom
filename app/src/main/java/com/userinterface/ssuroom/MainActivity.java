@@ -5,20 +5,26 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +33,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.type.LatLng;
 import com.userinterface.ssuroom.adapter.GridListAdapter;
 import com.userinterface.ssuroom.model.ReviewItem;
@@ -132,8 +140,24 @@ public class MainActivity extends AppCompatActivity {
                                 Map<String, Object> data = document.getData();
                                 ArrayList<String> fans=(ArrayList<String>) data.get("fans");
                                 boolean isHeart=fans.contains(user.getUid());
-                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
+
+                                ReviewItem rItem=new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart);
+                                adapter.addItem(rItem);
                                 Log.d("final_log", "초기 리뷰 데이터 DB에서 가져오기");
+
+                                ArrayList<String> fileName = (ArrayList<String>) data.get("imgs");
+                                FirebaseStorage storage = FirebaseStorage.getInstance();
+                                StorageReference storageRef = storage.getReference();
+                                storageRef.child("image").child(fileName.get(0))
+                                        .getBytes(10*1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                            @Override
+                                            public void onSuccess(byte[] bytes) {
+                                                if(!adapter.items.contains(rItem))
+                                                    return;
+                                                rItem.setMainImg(bytes);
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        });
                             }
 
                             gridView.setAdapter(adapter);
@@ -160,8 +184,24 @@ public class MainActivity extends AppCompatActivity {
                                 Map<String, Object> data = document.getData();
                                 ArrayList<String> fans=(ArrayList<String>) data.get("fans");
                                 boolean isHeart=fans.contains(user.getUid());
-                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
+                                ReviewItem rItem=new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart);
+                                adapter.addItem(rItem);
                                 Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
+
+                                ArrayList<String> fileName = (ArrayList<String>) data.get("imgs");
+                                FirebaseStorage storage = FirebaseStorage.getInstance();
+                                StorageReference storageRef = storage.getReference();
+
+                                storageRef.child("image").child(fileName.get(0))
+                                        .getBytes(10*1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                            @Override
+                                            public void onSuccess(byte[] bytes) {
+                                                if(!adapter.items.contains(rItem))
+                                                    return;
+                                                rItem.setMainImg(bytes);
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        });
                                 Log.d("final_log", "필터 적용해서 DB에서 가져오기");
                             }
                         } else {
@@ -194,8 +234,24 @@ public class MainActivity extends AppCompatActivity {
                                 Map<String, Object> data = document.getData();
                                 ArrayList<String> fans=(ArrayList<String>) data.get("fans");
                                 boolean isHeart=fans.contains(user.getUid());
-                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
+                                ReviewItem rItem=new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart);
+                                adapter.addItem(rItem);
                                 Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
+
+
+                                ArrayList<String> fileName = (ArrayList<String>) data.get("imgs");
+                                FirebaseStorage storage = FirebaseStorage.getInstance();
+                                StorageReference storageRef = storage.getReference();
+                                storageRef.child("image").child(fileName.get(0))
+                                        .getBytes(10*1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                            @Override
+                                            public void onSuccess(byte[] bytes) {
+                                                if(!adapter.items.contains(rItem))
+                                                    return;
+                                                rItem.setMainImg(bytes);
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        });
                                 Log.d("final_log", "필터 적용해서 DB에서 가져오기");
 
                             }
@@ -229,8 +285,23 @@ public class MainActivity extends AppCompatActivity {
                                 Map<String, Object> data = document.getData();
                                 ArrayList<String> fans=(ArrayList<String>) data.get("fans");
                                 boolean isHeart=fans.contains(user.getUid());
-                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
+                                ReviewItem rItem=new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart);
+                                adapter.addItem(rItem);
                                 Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
+
+                                ArrayList<String> fileName = (ArrayList<String>) data.get("imgs");
+                                FirebaseStorage storage = FirebaseStorage.getInstance();
+                                StorageReference storageRef = storage.getReference();
+                                storageRef.child("image").child(fileName.get(0))
+                                        .getBytes(10*1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                            @Override
+                                            public void onSuccess(byte[] bytes) {
+                                                if(!adapter.items.contains(rItem))
+                                                    return;
+                                                rItem.setMainImg(bytes);
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        });
                                 Log.d("final_log", "필터 적용해서 DB에서 가져오기");
 
                             }
@@ -264,8 +335,23 @@ public class MainActivity extends AppCompatActivity {
                                 Map<String, Object> data = document.getData();
                                 ArrayList<String> fans=(ArrayList<String>) data.get("fans");
                                 boolean isHeart=fans.contains(user.getUid());
-                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
+                                ReviewItem rItem=new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart);
+                                adapter.addItem(rItem);
                                 Log.d("firebaseSpinner", document.getId() + " => " + document.getData());
+
+                                ArrayList<String> fileName = (ArrayList<String>) data.get("imgs");
+                                FirebaseStorage storage = FirebaseStorage.getInstance();
+                                StorageReference storageRef = storage.getReference();
+                                storageRef.child("image").child(fileName.get(0))
+                                        .getBytes(10*1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                            @Override
+                                            public void onSuccess(byte[] bytes) {
+                                                if(!adapter.items.contains(rItem))
+                                                    return;
+                                                rItem.setMainImg(bytes);
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        });
                                 Log.d("final_log", "필터 적용해서 DB에서 가져오기");
 
                             }
@@ -301,8 +387,23 @@ public class MainActivity extends AppCompatActivity {
                                 Map<String, Object> data = document.getData();
                                 ArrayList<String> fans=(ArrayList<String>) data.get("fans");
                                 boolean isHeart=fans.contains(user.getUid());
-                                adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
+                                ReviewItem rItem=new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart);
+                                adapter.addItem(rItem);
                                 Log.d("firebasecheckbox", document.getId() + " => " + document.getData());
+
+                                ArrayList<String> fileName = (ArrayList<String>) data.get("imgs");
+                                FirebaseStorage storage = FirebaseStorage.getInstance();
+                                StorageReference storageRef = storage.getReference();
+                                storageRef.child("image").child(fileName.get(0))
+                                        .getBytes(10*1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                            @Override
+                                            public void onSuccess(byte[] bytes) {
+                                                if(!adapter.items.contains(rItem))
+                                                    return;
+                                                rItem.setMainImg(bytes);
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        });
                                 Log.d("final_log", "좋아요 적용해서 DB에서 가져오기");
 
                             }
@@ -350,7 +451,22 @@ public class MainActivity extends AppCompatActivity {
                             Map<String, Object> data = document.getData();
                             ArrayList<String> fans=(ArrayList<String>) data.get("fans");
                             boolean isHeart=fans.contains(user.getUid());
-                            adapter.addItem(new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart));
+                            ReviewItem rItem=new ReviewItem((String) data.get("tradeType"), (Long) data.get("rentCost"), (Long) data.get("depositCost"), (Long) data.get("area"), (Long) data.get("floor"), (String) data.get("address"), (Double) data.get("star"), (String) data.get("isTrading"), document.getId(),isHeart);
+                            adapter.addItem(rItem);
+
+                            ArrayList<String> fileName = (ArrayList<String>) data.get("imgs");
+                            FirebaseStorage storage = FirebaseStorage.getInstance();
+                            StorageReference storageRef = storage.getReference();
+                            storageRef.child("image").child(fileName.get(0))
+                                    .getBytes(10*1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                        @Override
+                                        public void onSuccess(byte[] bytes) {
+                                            if(!adapter.items.contains(rItem))
+                                                return;
+                                            rItem.setMainImg(bytes);
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    });
                             Log.d("final_log", "거리 정보 적용해서 가까운 리뷰만 DB에서 가져오기");
                         }
                         adapter.removeFarReview(places);

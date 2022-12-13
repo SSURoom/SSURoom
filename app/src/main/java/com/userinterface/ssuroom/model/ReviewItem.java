@@ -11,6 +11,7 @@ public class ReviewItem {
     String isTrading;
     String id;
     boolean isHeart;
+    public byte[] mainImg;
 
     public ReviewItem(String tradeType, long rentCost, long depositCost, long area, long floor, String address, double star, String isTrading,String id,boolean isHeart) {
         this.tradeType = tradeType;
@@ -23,6 +24,15 @@ public class ReviewItem {
         this.isTrading = isTrading;
         this.id = id;
         this.isHeart=isHeart;
+        mainImg=null;
+    }
+
+    public void setMainImg(byte[] mainImg) {
+        this.mainImg = mainImg;
+    }
+
+    public byte[] getMainImg() {
+        return mainImg;
     }
 
     public boolean isHeart() {

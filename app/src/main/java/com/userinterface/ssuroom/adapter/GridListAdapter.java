@@ -2,6 +2,8 @@ package com.userinterface.ssuroom.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -30,7 +33,7 @@ import com.userinterface.ssuroom.model.ReviewItem;
 import java.util.ArrayList;
 
 public class GridListAdapter extends BaseAdapter {
-    ArrayList<ReviewItem> items = new ArrayList<ReviewItem>();
+    public ArrayList<ReviewItem> items = new ArrayList<>();
     Context context;
     FirebaseFirestore db;
     AppCompatActivity mainActivity;
@@ -146,6 +149,14 @@ public class GridListAdapter extends BaseAdapter {
                         });
             }
         });
+        ImageView imgView=view.findViewById(R.id.imageView);
+        if(item.getMainImg()!=null) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(item.getMainImg(), 0, item.getMainImg().length);
+            imgView.setImageBitmap(bitmap);
+        }
+        else{
+            imgView.setImageResource(R.drawable.loading_image);
+        }
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

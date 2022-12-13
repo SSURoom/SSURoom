@@ -56,6 +56,7 @@ public class DetailActivity extends AppCompatActivity {
     CommentAdapter commentAdapter;
     String id;//postId
     InputMethodManager imm;
+    String pNum;
 
     Adapter adapter;
     ViewPager viewPager;
@@ -120,7 +121,7 @@ public class DetailActivity extends AppCompatActivity {
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
 
-        String pNum = phoneTv.getText().toString();
+        pNum = phoneTv.getText().toString();
         Button callBt = findViewById(R.id.calling);
         callBt.setOnClickListener(view -> {
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + pNum));
@@ -149,6 +150,7 @@ public class DetailActivity extends AppCompatActivity {
                         floor.setText("" + data.get("floor") + "층");
                         review.setText("" + data.get("review"));
                         phoneTv.setText("" + data.get("phoneNum"));
+                        pNum=phoneTv.getText().toString();
                         timeTv.setText(calculateTime((long) data.get("createdAt")));
 
                         ArrayList<String> optionData = (ArrayList<String>) data.get("option");
